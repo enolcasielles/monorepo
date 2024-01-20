@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { type Task } from 'core'
+import { useEffect, useState } from 'react'
+import { createTask, deleteTask, getTasks } from './services/tasks.service'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App () {
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [newTask, setNewTask] = useState('')
+
+  const addTask = async () => {
+    const task: Task = {
+      id: Date.now(),
+      text: newTask,
+      completed: false
+    }
+    const createdTask = await createTask(task)
+    setTasks([...tasks, createdTask])
+    setNewTask('')
+  }
+
+  const onDeleteTask = async (id: number) => {
+    const tasks = await deleteTask(id.toString())
+    setTasks(tasks)
+  }
+
+  useEffect(() => {
+    const f = async () => {
+      const _tasks = await getTasks()
+      setTasks(_tasks)
+    }
+    f()
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='tasks'>
+      <div className='newTask'>
+        <input
+          type="text"
+          value={newTask}
+          onChange={(e) => { setNewTask(e.target.value) }}
+        />
+        <button disabled={newTask === ''} onClick={() => {
+          addTask()
+        }}>Añadir</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <ul>
+        {tasks.map(task => (
+          <li key={task.id} >
+            {task.text}
+            <button onClick={() => { onDeleteTask(task.id) }}>
+              Borrar
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
-
-export default App

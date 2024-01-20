@@ -23,10 +23,10 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: auto;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  width: 320px;
+  max-width: 100%;
   min-height: 100vh;
 }
 
@@ -49,10 +49,6 @@ button {
 button:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -64,5 +60,24 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+input {
+  height: 25px;
+}
+
+.tasks {
+  margin-top: 50px; 
+  li {
+    margin-top: 30px;
+  }
+  button {
+    margin-left: 20px;
+  }
+  .newTask {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
