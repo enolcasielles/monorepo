@@ -6,9 +6,10 @@ export const getTasks = async (): Promise<Task[]> => {
 }
 
 export const createTask = async (task: Task): Promise<Task> => {
+  console.log(task.toTaskDTO())
   const response = await fetch('http://localhost:3001/tasks', {
     method: 'POST',
-    body: JSON.stringify(task),
+    body: JSON.stringify(task.toTaskDTO()),
     headers: {
       'Content-Type': 'application/json'
     }

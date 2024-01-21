@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "pnpm run --parallel dev",
+    "dev:front": "pnpm run --filter front dev",
+    "dev:api": "pnpm run --filter api dev",
+    "dev:apps": "pnpm run --filter api --filter front dev"
   },
   "keywords": [],
   "author": "",

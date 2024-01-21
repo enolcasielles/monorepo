@@ -1,4 +1,4 @@
-import { type Task } from 'core'
+import { Task } from 'core'
 import { useEffect, useState } from 'react'
 import { createTask, deleteTask, getTasks } from './services/tasks.service'
 
@@ -7,11 +7,10 @@ export default function App () {
   const [newTask, setNewTask] = useState('')
 
   const addTask = async () => {
-    const task: Task = {
-      id: Date.now(),
-      text: newTask,
-      completed: false
-    }
+    const task: Task = new Task(
+      Date.now(),
+      newTask
+    )
     const createdTask = await createTask(task)
     setTasks([...tasks, createdTask])
     setNewTask('')
