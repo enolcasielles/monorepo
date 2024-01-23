@@ -7,11 +7,6 @@
     "incremental": true,
     "allowSyntheticDefaultImports": true,
     
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "removeComments": true,
-    
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
